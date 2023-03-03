@@ -6,13 +6,27 @@ class Team extends Component{
     constructor(){
         super()
         this.state={
-            membersInfo:MembersInfo
+            membersInfo:MembersInfo,
+            members: [],
+            counter:0
         }
-        //this.clickEvent= this.clickEvent.bind(this);
+        this.clickEvent= this.clickEvent.bind(this);
     }
     clickEvent(){
-        console.log(MembersInfo[0])
+        //console.log(this.state.members)
         //newArray.push(test);
+        if (this.state.counter < this.state.membersInfo.length){
+            this.state.members.push(this.state.membersInfo[this.state.counter])
+            this.setState(prevstate=>{
+                                return{
+                                    counter:prevstate.counter +1
+                                }
+                            }
+                        );
+            
+            return this.state.members;
+        }
+        
     }
     mapping(x){
         const members= x.map( member=> <TeamMember 
@@ -32,7 +46,7 @@ class Team extends Component{
             <div className='row'>
                 <button className='btn btn-primary btn-lg btn-block' onClick={this.clickEvent}>Click me!</button>
                 <h1>Team</h1>
-                {this.mapping(this.state.membersInfo)} 
+                {this.mapping(this.state.members)} 
             </div>
         )
     }
